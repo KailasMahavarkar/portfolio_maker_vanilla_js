@@ -1,0 +1,145 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main/utils.css">
+    <link rel="stylesheet" href="./css/main/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <div class="container">
+        <div class="box">
+            <h1 class="h1">
+                Choose Footer
+            </h1>
+
+            <div class="w-100 footer-element">
+                <h1>
+                    Type 1
+                </h1>
+                <div class="footer" id="footer-type-1">
+                    <h2 class="footer__text">
+                        @2021 All Rights Reserved |
+                    </h2>
+                </div>
+            </div>
+
+            <div class="w-100 footer-element">
+                <h1>
+                    Type 2
+                </h1>
+                <div class="footer" id="footer-type-2">
+                    <h2 class="footer__text">
+                        Thank You | Made by
+                    </h2>
+                </div>
+            </div>
+
+            <div class="w-100 footer-element">
+                <h1>
+                    Type 3
+                </h1>
+                <div class="footer" id="footer-type-3">
+                    <h2 class="footer__text">
+                        Made with ❤️ by
+                    </h2>
+                </div>
+            </div>
+
+            <div class="w-100 footer-element">
+                <h1>
+                    Type 4
+                </h1>
+                <div class="footer" id="footer-type-4" onclick="elementSelectHandler()">
+                    <h2 class="footer__text">
+                        website made by
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div id="prev_next">
+            <div class="prev">
+                <a href="contact.html">
+                    <button>
+                        <h1><i class="fa-solid fa-arrow-left"></i> Prev</h1>
+                    </button>
+                </a>
+            </div>
+            <div class="next">
+                <a href="result.html">
+                    <button>
+                        <h1>ResultPage<i class="fa-solid fa-arrow-right"></i></h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="./js/base.js"></script>
+
+    <script>
+
+        const footerList = ["footer-type-1", "footer-type-2", "footer-type-3", 'footer-type-4'];
+        const logotext = localStorage.getItem('logoText');
+
+        const multiSelect = (list) => {
+            return list.map(element => {
+                return document.getElementById(element)
+            });
+        }
+
+        window.addEventListener('load', () => {
+            // select default footer
+            const footerType = localStorage.getItem('footer');
+
+            if (footerType) {
+                const footer = document.getElementById(footerType);
+                footer.classList.add('selected');
+            } else {
+                const footer = document.getElementById('footer-type-1');
+                footer.classList.add('selected');
+            }
+
+        });
+
+
+        // loop through footer text elements and set text
+
+        multiSelect(footerList).forEach(element => {
+            element.querySelector('.footer__text').innerText += " " + (logotext || "");
+        })
+
+        // add onclick event to all footer
+        multiSelect(footerList).forEach(element => {
+            element.addEventListener("click", (e) => {
+                localStorage.setItem("footer", e.target.id);
+                multiSelect(footerList).forEach(element => {
+                    element.classList.remove("selected");
+                });
+
+                // add selected to local storage
+                localStorage.setItem("footerCode",
+                    element.outerHTML
+                );
+
+                element.classList.add("selected");
+            });
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>

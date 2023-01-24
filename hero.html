@@ -1,0 +1,179 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./css/main/utils.css"> -->
+    <link rel="stylesheet" href="./css/main/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+</head>
+
+
+
+
+<body>
+    <div class="container">
+        <div class="box">
+            <h1 style="text-align: center;">
+                Edit <span>Hero</span> Section
+            </h1>
+            <div id="hero">
+                <div class="hero__content">
+                    <h1 class="hero__title">
+                        <input id="heroTitle" type="text" autocomplete="on" >
+                    </h1>
+                    <p class="hero__description">
+                        <textarea id="heroInfo" cols="30" rows="10" autocomplete="on"></textarea>
+                    </p>
+                    <a class="hero__button" id="heroButton" href="#contact" >Contact Me</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="controlbox__open" onclick="openControlBox()">OPEN CONTROLS</div>
+        <div id="controlBox" class="controlbox controlbox__basic">
+            <div class="controlbox__close" onclick="closeControlBox()">CLOSE</div>
+            <div class="controlbox__inner">
+                <div class="flex flex-column">
+                    <div class="flex flex-column flexcenter" style="margin: 10px;">
+                        <label class="switch">
+                            <input type="checkbox" id="heroBorderToggle">
+                            <span class="slider round">
+                            </span>
+                        </label>
+                        <div>
+                            Hide Borders
+                        </div>
+                    </div>
+                    <div class="flex flex-column flexcenter" style="margin: 10px;">
+                        <label class="switch">
+                            <input type="checkbox" id="heroContactRoundToggle">
+                            <span class="slider round">
+                            </span>
+                        </label>
+                        <div>
+                            Rounded Contact
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prev_next">
+            <div class="prev">
+                <a href="navbar.html">
+                    <button>
+                        <h1><i class="fa-solid fa-arrow-left"></i> prev</h1>
+                    </button>
+                </a>
+            </div>
+            <div class="next">
+                <a href="project.html">
+                    <button>
+                        <h1>next<i class="fa-solid fa-arrow-right"></i></h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <script src="./js/base.js"></script>
+    <script>
+        const hero = document.getElementById('hero');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroInfo = document.getElementById('heroInfo');
+        const heroContactRoundToggle = document.getElementById('heroContactRoundToggle');
+        const heroButton = document.getElementById('heroButton');
+        const heroBorder = document.getElementById('heroBorderToggle')
+
+        window.addEventListener('load', () => {
+            heroTitle.setAttribute('value', localStorage.getItem('heroTitle') || "");
+            heroInfo.value = localStorage.getItem('heroInfo') || "";
+
+            const hasRoundButton = JSON.parse(localStorage.getItem('heroContactRoundToggle')) || false;
+
+            if (hasRoundButton === true) {
+                heroContactRoundToggle.checked = true;
+                heroButton.classList.add('button-round');
+            } else {
+                heroContactRoundToggle.checked = false;
+                heroButton.classList.remove('button-round');
+            }
+
+        });
+
+        heroTitle.addEventListener('keyup', () => {
+            const finalValue = String(heroTitle.value).substring(0, 20);
+            heroTitle.setAttribute("value", finalValue);
+
+            // sync to local storage
+            localStorage.setItem('heroTitle', finalValue);
+
+            // sync hero code
+            localStorage.setItem('heroCode', hero.innerHTML);
+
+        })
+
+        heroInfo.addEventListener('keyup', () => {
+            const finalValue = String(heroInfo.value).substring(0, 350);
+            heroInfo.innerText = finalValue;
+
+            // sync to local storage
+            localStorage.setItem('heroInfo', finalValue);
+
+            // sync hero code
+            localStorage.setItem('heroCode', hero.innerHTML);
+        })
+
+        heroContactRoundToggle.addEventListener('click', () => {
+            if (heroContactRoundToggle.checked) {
+                heroButton.classList.add('button-round');
+            } else {
+                heroButton.classList.remove('button-round');
+            }
+            localStorage.setItem('heroContactRoundToggle', heroContactRoundToggle.checked);
+
+            heroTitle.setAttribute('value', localStorage.getItem('heroTitle'));
+            heroInfo.value = localStorage.getItem('heroInfo');
+
+            // sync hero code
+            localStorage.setItem('heroCode', hero.innerHTML);
+        })
+
+        heroBorder?.addEventListener('click', () => {
+            const borderStrength = '5'
+            if (heroBorder.checked) {
+                heroTitle.style.border = 'none';
+                heroInfo.style.border = 'none';
+            } else {
+                heroTitle.style.border = 'transparent';
+                heroTitle.style.borderLeft = `${borderStrength}px solid var(--primary)`;
+
+                // remove border from hero info
+                heroInfo.style.border = 'transparent';
+                heroInfo.style.borderLeft = `${borderStrength}px solid var(--primary)`;
+            }
+
+            heroTitle.setAttribute('value', localStorage.getItem('heroTitle'));
+            heroInfo.value = localStorage.getItem('heroInfo');
+
+            // sync hero code
+            localStorage.setItem('heroCode', hero.innerHTML);
+        })
+
+    </script>
+
+</body>
+
+</html>

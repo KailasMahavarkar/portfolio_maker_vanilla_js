@@ -1,0 +1,254 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <div class="container">
+        <div class="box">
+            <h1 class="h1">
+                My Projects
+            </h1>
+            <div id="projectgroup" class="project-test">
+            </div>
+        </div>
+
+        <div class="controlbox__open" onclick="openControlBox()">OPEN CONTROLS</div>
+        <div id="controlBox" class="controlbox controlbox__project">
+            <div class="controlbox__close" onclick="closeControlBox()">CLOSE</div>
+            <div class="controlbox__inner">
+                <div class="project_form">
+                    <h2>
+                        Add New Project
+                    </h2>
+                   <div class="form-group">
+                        <label for="projectName">Project Name</label>
+                        <input type="text" name="projectName" id="projectName" value="DynoPictures.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">Project Description</label>
+                        <textarea name="projectDescription" id="projectDescription" cols="30"
+                            rows="10">Dynopictures.com is portfolio website made for Rahul Dyno an business enthusiast, it showcases his work and projects.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectImage">Project Image Link</label>
+                        <input type="text" name="projectImage" id="projectImage"
+                            value="https://i.imgur.com/HPjiNIk.jpeg">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectLink">Project Redirect Link</label>
+                        <input type="text" name="projectLink" id="projectLink" value="https://dynopictures.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectGithub">Project Github</label>
+                        <input type="text" name="projectGithub" id="projectGithub"
+                            value="https://github.com/OrkaitSolutions/dynopictures">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectTags">Project Tags (seperated by comma)</label>
+                        <input type="text" name="projectTags" id="projectTags" value="nextjs, netlify">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-primary" onclick="addProject()">
+                            Add Project
+                        </button>
+                    </div> 
+
+                    <h2 style="text-align: center; margin: 10px;">
+                        OR
+                    </h2>
+                    <div>
+                        <select name="project" id="projectSelector">
+                            <option value="0">Select a Project to delete</option>
+                        </select>
+                        <button class="btn btn-outline-primary" onclick="deleteProject()">
+                            Delete Project
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="prev_next">
+            <div class="prev">
+                <a href="navbar.html">
+                    <button>
+                        <h1><i class="fa-solid fa-arrow-left"></i> prev</h1>
+                    </button>
+                </a>
+            </div>
+            <div class="next">
+                <a href="contact.html">
+                    <button>
+                        <h1>next<i class="fa-solid fa-arrow-right"></i></h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="./js/base.js"></script>
+
+    <script>
+
+
+        const projectGroup = document.getElementById('projectgroup')
+        const projectName = document.getElementById('projectName')
+        const projectLink = document.getElementById('projectLink')
+        const projectDescription = document.getElementById('projectDescription')
+        const projectImage = document.getElementById('projectImage')
+        const projectGithub = document.getElementById('projectGithub')
+        const projectTags = document.getElementById('projectTags')
+
+
+        const eventListenerSync = (elementName, maxlength = 20) => {
+            const element = document.getElementById(elementName);
+            element?.addEventListener('keyup', () => {
+                // find all classes [logo]
+                const finalValue = String(element.value).substring(0, maxlength);
+                element.innerHTML = finalValue;
+            })
+        }
+
+        eventListenerSync('projectName')
+        eventListenerSync('projectLink')
+        eventListenerSync('projectDescription')
+        eventListenerSync('projectImage')
+        eventListenerSync('projectGithub')
+        eventListenerSync('projectTags')
+
+
+
+
+        const addProject = () => {
+            const project = document.createElement('div');
+            const projectSelector = document.getElementById('projectSelector');
+
+            // check if all fields are filled
+            if (!projectName?.value) {
+                // focus on project name
+                console.log('project name is empty')
+                projectName.focus();
+                return;
+            }
+
+            if (!projectLink?.value) {
+                // focus on project name
+                console.log('project link is empty')
+                projectLink.focus();
+                return;
+            }
+
+            if (!projectDescription?.value) {
+                // focus on project name
+                console.log('project description is empty')
+                projectDescription.focus();
+                return;
+            }
+
+            if (!projectImage?.value) {
+                // focus on project name
+                console.log('project image is empty')
+                projectImage?.focus();
+                return;
+            }
+
+            if (!projectGithub?.value) {
+                // focus on project name
+                console.log('project github is empty')
+                projectGithub?.focus();
+                return;
+            }
+
+            if (!projectTags?.value) {
+                // focus on project name
+                console.log('project tags is empty')
+                projectTags?.focus();
+                return;
+            }
+
+            const createTags = (tags) => {
+                const tagsList = tags.split(',');
+                let finalTags = '';
+                for (let i = 0; i < tagsList.length; i++) {
+                    finalTags += `<span class="tag">${tagsList[i]}</span>`
+                }
+                return finalTags;
+            }
+
+            project.classList.add('project');
+            project.innerHTML = `
+    <div class="project__image">
+        <img width="100%" height="100%" src="${projectImage.value}" >
+    </div>
+    <div class="project__info">
+        <div class="project__title">
+            ${projectName.value}
+        </div>
+        <div class="project__tags">
+            ${createTags(projectTags.value)}
+        </div>
+        <div class="project__description">
+            ${projectDescription.value}
+        </div>
+        <div class="project__links">
+            <a href="${projectLink.value}">Check Live</a>
+            <a href="${projectGithub.value}">Check Source</a>
+        </div>
+    </div>`;
+
+            // set project id
+            project.id = `project-${projectGroup.childElementCount + 1}`;
+
+            projectGroup.appendChild(project);
+
+            // sync all projects to local storage
+            const projects = document.getElementById('projectgroup');
+            localStorage.setItem('projectCode', projects.innerHTML);
+
+
+            // add to project selector
+            const option = document.createElement('option');
+            option.value = project.id;
+            option.innerHTML = projectName.value;
+            projectSelector.appendChild(option);
+        }
+
+
+        // make selector to delete project
+        const deleteProject = () => {
+
+            try {
+                const projectSelector = document.getElementById('projectSelector');
+                const project = document.getElementById(projectSelector.value);
+                project.remove();
+
+                // sync all projects to local storage
+                const projects = document.getElementById('projectgroup');
+                localStorage.setItem('projectCode', projects.innerHTML);
+
+                // remove from project selector
+                projectSelector.remove(projectSelector.selectedIndex);
+            } catch (error) {
+                console.log("no project selected")
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

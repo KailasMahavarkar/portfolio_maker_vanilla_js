@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./css/main/utils.css">
+    <link rel="stylesheet" href="./css/main/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <style>
+        h1{
+            margin: 20px;
+            font-size: 3rem;
+        }
+    </style>
+    <div class="container">
+        <h1 >
+            PortFolio Builder
+        </h1>
+        <div class="box flex flexcenter">
+            <div class="themegallery">
+                <div class="flex flex-column flexcenter">
+                    <div class="flex flexcenter theme" id="light" onclick="elementSelectHandler()">
+                    </div>
+                    <h2>
+                        Light
+                    </h2>
+                </div>
+                <div class="flex flex-column flexcenter">
+                    <div class="flex flexcenter theme text-white" id="dark" onclick="elementSelectHandler()">
+                    </div>
+                    <h2>
+                        Dark
+                    </h2>
+                </div>
+                <div class="flex flex-column flexcenter">
+                    <div class="flex flexcenter theme text-white" id="night" onclick="elementSelectHandler()">
+                    </div>
+                    <h2>
+                        Night
+                    </h2>
+                </div>
+                <div class="flex flex-column flexcenter">
+                    <div class="flex flexcenter theme" id="retro" onclick="elementSelectHandler()">
+                    </div>
+                    <h2>
+                        Retro
+                    </h2>
+                </div>
+            </div>
+            <div id="prev_next">
+                <div class="next">
+                    <a href="navbar.html">
+                        <button>
+                            <h1>next<i class="fa-solid fa-arrow-right"></i></h1>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        window.addEventListener('load', () => {
+            const theme = localStorage.getItem('theme');
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+
+            // get all the elements with class name theme
+            const themeElements = document.getElementsByClassName('theme');
+
+            // loop through all the elements
+            for (let i = 0; i < themeElements.length; i++) {
+
+                // if the element has the same id as the theme in local storage
+                if (themeElements[i].id === theme) {
+                    // add the class selected to the element
+                    themeElements[i].classList.add('selected');
+                }
+            }
+
+            localStorage.setItem('mode', 'dev');
+        });
+
+        const elementSelectHandler = () => {
+            const element = event.target;
+            const id = element.id;
+            console.log(id);
+            localStorage.setItem("theme", id);
+
+            // check if the theme is already selected
+            if (element.classList.contains("selected")) {
+                element.classList.remove("selected");
+                localStorage.removeItem("theme");
+            } else {
+                // remove the selected class from all the elements
+                const elements = document.querySelectorAll(".theme");
+                elements.forEach((element) => {
+                    element.classList.remove("selected");
+                });
+
+                document.documentElement.setAttribute('data-theme', id);
+                element.classList.add("selected");
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

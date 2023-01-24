@@ -1,0 +1,204 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+
+    </style>
+
+    <div class="container">
+        <div class="box">
+            <h1 class="h1" style="margin-top: 100px;">
+                Choose Navbar
+            </h1>
+
+            <div class="w-100">
+                <h1>
+                    Type 1
+                </h1>
+                <div class="navbar" style="margin-top: 20px;" id="navbar-type-1">
+                    <div>
+                        <h2 class="logo"></h2>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <a href="#home">Home</a>
+                            </li>
+                            <li>
+                                <a href="#hero">about</a>
+                            </li>
+                            <li>
+                                <a href="#projectgroup">Projects</a>
+                            </li>
+                            <li>
+                                <a href="#contact">contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-100" style="margin-top: 30px;">
+                <h1>
+                    Type 2
+                </h1>
+                <div class="navbar" style="margin-top: 20px;" id="navbar-type-2">
+                    <div>
+                        <h2 class="logo"></h2>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <a href="#home">Home</a>
+                            </li>
+                            <li>
+                                <a href="#hero">about</a>
+                            </li>
+                            <li>
+                                <a href="#projectgroup">Projects</a>
+                            </li>
+                            <li>
+                                <a href="#contact">contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-100" style="margin-top: 30px;">
+                <h1>
+                    Type 3
+                </h1>
+                <div class="navbar" style="margin-top: 20px;" id="navbar-type-3">
+                    <div>
+                        <h2 class="logo"></h2>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <a href="#home">Home</a>
+                            </li>
+                            <li>
+                                <a href="#hero">about</a>
+                            </li>
+                            <li>
+                                <a href="#projectgroup">Projects</a>
+                            </li>
+                            <li>
+                                <a href="#contact">contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="logotext">
+            <label>
+                Enter Logo Text
+            </label>
+            <input type="text" id="logoInput">
+            </input>
+        </div>
+        <div id="prev_next">
+            <div class="prev">
+                <a href="index.html">
+                    <button>
+                        <h1><i class="fa-solid fa-arrow-left"></i> prev</h1>
+                    </button>
+                </a>
+            </div>
+            <div class="next">
+                <a href="hero.html">
+                    <button>
+                        <h1>next<i class="fa-solid fa-arrow-right"></i></h1>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <script src="./js/base.js"></script>
+
+    <script>
+        const logo = document.querySelector(".logo");
+
+        const navbarList = ["navbar-type-1", "navbar-type-2", "navbar-type-3"];
+        const localNavbar = localStorage.getItem("navbar");
+        const localLogoInput = localStorage.getItem("logoInput");
+
+        const multiSelect = (list) => {
+            return list.map(element => {
+                return document.getElementById(element)
+            });
+        }
+
+
+        window.addEventListener("load", () => {
+            if (localNavbar) {
+                document.getElementById(localNavbar).classList.add("selected");
+            } else {
+                localStorage.setItem("navbar", "navbar-type-1");
+                document.getElementById("navbar-type-1").classList.add("selected");
+            }
+
+            // update logo text on h2 in all navbar
+            multiSelect(navbarList).forEach(element => {
+                element.querySelector(".logo").innerText = localStorage.getItem("logoText");
+            });
+
+            // update input value
+            document.getElementById("logoInput").value = localStorage.getItem("logoText");
+
+        });
+
+        // add onclick event to all navbar
+        multiSelect(navbarList).forEach(element => {
+            element.addEventListener("click", (e) => {
+                localStorage.setItem("navbar", e.target.id);
+                multiSelect(navbarList).forEach(element => {
+                    element.classList.remove("selected");
+                });
+                element.classList.add("selected");
+            });
+        });
+
+
+        // update logo text on h2 in all navbar
+        multiSelect(navbarList).forEach(element => {
+            element.querySelector(".logo").innerText = localLogoInput ? localLogoInput : "Logo";
+        });
+
+        // add onchange event to logo input
+        document.getElementById("logoInput").addEventListener("keyup", (e) => {
+            const logoText = e.target.value;
+            multiSelect(navbarList).forEach(element => {
+                element.querySelector(".logo").innerText = logoText;
+            });
+
+            // add logo text to local storage
+            localStorage.setItem("logoText", logoText);
+            localStorage.setItem("navbarCode", document.getElementById(localStorage.getItem('navbar')).innerHTML)
+        });
+
+
+
+
+    </script>
+
+</body>
+
+</html>

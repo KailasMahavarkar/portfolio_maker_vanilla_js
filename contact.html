@@ -1,0 +1,252 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./css/main/utils.css" />
+		<link rel="stylesheet" href="./css/main/main.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+
+	<body>
+		<style>
+			select {
+				width: 100%;
+				height: 50px;
+				border-radius: 5px;
+				padding: 0 10px;
+				font-size: 1.2rem;
+				margin-bottom: 20px;
+			}
+		</style>
+
+		<div class="container">
+			<div class="box flex flexcenter">
+				<div id="contact">
+					<div class="contactwrapper">
+						<form id="formspree" class="contact">
+							<h2>Contact Me</h2>
+							<div>
+								<label for="email">Email</label>
+								<input
+									id="contactemail"
+									type="text"
+									name="email"
+									class="no-autofill"
+								/>
+							</div>
+
+							<div>
+								<label for="Message">Message</label>
+								<textarea
+									id="contactinfo"
+									type="text"
+									name="message"
+								></textarea>
+							</div>
+							<button class="btn btn-outline-primary">
+								Submit
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="controlbox__open" onclick="openControlBox()">
+				OPEN CONTROLS
+			</div>
+			<div id="controlBox" class="controlbox">
+				<div class="controlbox__close" onclick="closeControlBox()">
+					CLOSE
+				</div>
+				<div class="controlbox__inner">
+					<div class="project_form">
+						<div class="form-group">
+							<label for="formspree">Add FormSpree link</label>
+							<input
+								type="text"
+								name="formspreeInput"
+								id="formspreeInput"
+								style="margin-top: 10px"
+							/>
+						</div>
+						<div class="form-group">
+							<label>Select Alignment</label>
+
+							<select
+								id="alignmentSelect"
+								style="margin-top: 10px"
+							>
+								<option value="flex-start">Left</option>
+								<option value="center">Center</option>
+								<option value="flex-end">Right</option>
+							</select>
+						</div>
+					</div>
+
+					<div id="resume">
+						<label for="resume">Add Resume Link (optional)</label>
+						<input
+							id="contactemail"
+							type="text"
+							name="resume"
+							class="no-autofill"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<!-- https://formspree.io/f/xyybloql -->
+			<div id="prev_next">
+				<div class="prev">
+					<a href="project.html">
+						<button>
+							<h1><i class="fa-solid fa-arrow-left"></i> prev</h1>
+						</button>
+					</a>
+				</div>
+				<div class="next">
+					<a href="footer.html">
+						<button>
+							<h1>next<i class="fa-solid fa-arrow-right"></i></h1>
+						</button>
+					</a>
+				</div>
+			</div>
+		</div>
+		<script src="./js/base.js"></script>
+
+		<script>
+			const contact = document.getElementById("contact");
+			const formspree = document.getElementById("formspree");
+
+			window.addEventListener("load", () => {
+				localStorage.setItem("contactCode", contact.innerHTML);
+
+				// load formspree link from local storage
+				const formspreeInput =
+					document.getElementById("formspreeInput");
+				if (localStorage.getItem("formspreeLink")) {
+					formspreeInput.value =
+						localStorage.getItem("formspreeLink");
+				}
+
+				// load alignment from local storage
+				if (localStorage.getItem("contactAlignment")) {
+					const localAlignment =
+						localStorage.getItem("contactAlignment");
+					document.getElementsByClassName(
+						"contactwrapper"
+					)[0].style.alignItems = localAlignment;
+					// set select value
+					const alignmentSelect =
+						document.getElementById("alignmentSelect");
+					alignmentSelect.value = localAlignment;
+				}
+
+				// contact
+				const contactemail = document.getElementById("contactemail");
+				const contactinfo = document.getElementById("contactinfo");
+
+				contactemail.addEventListener("input", () => {
+					contactemail.setAttribute(
+						"value",
+						localStorage.getItem("contactemail")
+					);
+				});
+
+                contactinfo.addEventListener("input", () => {
+					contactinfo.setAttribute(
+						"value",
+						localStorage.getItem("contactinfo")
+					);
+				});
+
+				const resumeInput = document.getElementById("resume");
+				if (localStorage.getItem("resume")) {
+					resumeInput.value = localStorage.getItem("resume");
+				}
+			});
+
+			const formspreeInput = document.getElementById("formspreeInput");
+			const alignmentSelect = document.getElementById("alignmentSelect");
+
+			const contactEmail = document.getElementById("contactemail");
+			const contactInfo = document.getElementById("contactinfo");
+
+			// add event listener to the input
+			formspreeInput.addEventListener("keyup", (e) => {
+				// get the value of the input
+				const formspreeLink = e.target.value;
+
+				// save the value to local storage
+				localStorage.setItem("formspreeLink", formspreeLink);
+
+				if (formspreeLink) {
+					// add the formspree link to the form
+					formspree.removeAttribute("action");
+					formspree.removeAttribute("method");
+
+					formspree.setAttribute("method", "POST");
+					formspree.setAttribute("action", formspreeLink);
+				} else {
+					// remove the formspree link from the form
+					formspree.setAttribute("method", "POST");
+					formspree.removeAttribute("action");
+				}
+			});
+
+			// add event listener to the alignmentSelect
+			alignmentSelect.addEventListener("change", (e) => {
+				// get the value of the input
+				const alignment = e.target.value;
+
+				// save the value to local storage
+				localStorage.setItem("contactAlignment", alignment);
+
+				// align-items: center;
+				document.getElementsByClassName(
+					"contactwrapper"
+				)[0].style.alignItems = alignment;
+			});
+
+			contactEmail.addEventListener("keyup", (e) => {
+				// update input value
+				contactEmail.value = e.target.value;
+				contactEmail.setAttribute("value", e.target.value);
+				localStorage.setItem("contactemail", e.target.value);
+			});
+
+			contactInfo.addEventListener("keyup", (e) => {
+				// update input value
+				contactInfo.value = e.target.value;
+                console.log(e.target.value);
+
+                // contactInfo.TEXT_NODE = e.target.value;
+				localStorage.setItem("contactinfo", e.target.value);
+			});
+
+			// add resume event listener
+			const resume = document.getElementById("resume");
+
+			resume.addEventListener("keyup", (e) => {
+				// update input value
+				resume.value = e.target.value;
+				localStorage.setItem("resume", e.target.value);
+			});
+		</script>
+	</body>
+</html>

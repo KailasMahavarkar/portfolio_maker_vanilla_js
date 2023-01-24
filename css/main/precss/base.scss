@@ -1,0 +1,228 @@
+* {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+}
+
+:root {
+	--base-100-dark: #2a303c;
+	--base-200-dark: #242933;
+	--base-300-dark: #20252e;
+
+	--base-100-light: #ffffff;
+	--base-200-light: #f2f2f2;
+	--base-300-light: #e5e6e6;
+
+	--base-100-night: #0f172a;
+
+	--base-100-retro: #e4d8b4;
+	--base-200-retro: #d2c59d;
+	--base-300-retro: #c6b386;
+}
+
+html[data-theme="light"] {
+	--primary: #570df8;
+	--primary-content: #ffffff;
+	--secondary: #f000b8;
+	--secondary-content: #ffffff;
+	--accent: #37cdbe;
+	--accent-content: #163835;
+	--neutral: #3d4451;
+	--neutral-content: #ffffff;
+	--base-100: #ffffff;
+	--base-200: #f2f2f2;
+	--base-300: #e5e6e6;
+	--base-content: #1f2937;
+
+	--bg-color-l1: var(--base-100);
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: --base-content;
+	}
+}
+
+html[data-theme="dark"] {
+	--primary: #661ae6;
+	--primary-content: #ffffff;
+	--secondary: #d926aa;
+	--secondary-content: #ffffff;
+	--accent: #1fb2a5;
+	--accent-content: #ffffff;
+	--neutral: #191d24;
+	--neutral-focus: #111318;
+	--neutral-content: #a6adbb;
+	--base-100: #2a303c;
+	--base-200: #242933;
+	--base-300: #20252e;
+	--base-content: #a6adbb;
+
+	color: white;
+	background-color: var(--base-100-dark);
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: white;
+	}
+}
+
+html[data-theme="night"] {
+	--primary: #38bdf8;
+	--secondary: #818cf8;
+	--accent: #f471b5;
+	--neutral: #1e293b;
+	--neutral-focus: #273449;
+	--base-100: #0f172a;
+	--info: #0ca5e9;
+	--success: #2dd4bf;
+	--warning: #f4bf50;
+	--error: #fb7085;
+
+	background-color: var(--base-100-night);
+	color: white;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: whitesmoke;
+	}
+}
+
+html[data-theme="retro"] {
+	--primary: #ef9995;
+	--primary-content: #282425;
+	--secondary: #a4cbb4;
+	--secondary-content: #282425;
+	--accent: #ebdc99;
+	--accent-content: #282425;
+	--neutral: #7d7259;
+	--neutral-content: #e4d8b4;
+	--base-100: #e4d8b4;
+	--base-200: #d2c59d;
+	--base-300: #c6b386;
+	--base-content: #282425;
+	--info: #2563eb;
+	--success: #16a34a;
+	--warning: #d97706;
+	--error: #dc2626;
+	--rounded-box: 0.4rem;
+	--rounded-btn: 0.4rem;
+	--rounded-badge: 0.4rem;
+
+	color: #282425;
+	background-color: var(--base-100-retro);
+
+	* :not(i) {
+		font-family: "Lobster";
+	}
+}
+
+#light {
+	background-color: var(--base-300-light);
+}
+
+#dark {
+	background-color: var(--base-100-dark);
+}
+
+#night {
+	background-color: var(--base-100-night);
+}
+
+#retro {
+	background-color: var(--base-100-retro);
+}
+
+html {
+	width: 100%;
+	height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.box {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+    margin: 50px;
+	margin-top: 0;
+}
+
+.box-full {
+	width: 100%;
+}
+
+ul {
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	padding: 10px;
+}
+
+ul > li {
+	margin: 5px;
+	border-radius: 5px;
+
+	a {
+		text-decoration: none;
+		padding: 10px 20px;
+		color: var(--primary-content);
+
+		:hover {
+			background-color: var(--primary);
+		}
+	}
+
+	background-color: var(--secondary);
+	padding: 10px;
+}
+
+hr {
+	border: none;
+	width: 90%;
+	height: 5px;
+	margin: 10px;
+	border-bottom: 3px solid var(--primary);
+}
+
+@mixin test {
+	border: 1px solid cyan;
+}
+
+@mixin test2 {
+	border: 1px solid red;
+}
+
+
