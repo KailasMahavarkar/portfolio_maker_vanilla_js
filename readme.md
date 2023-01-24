@@ -1,5 +1,8 @@
 # Portfolio Maker using vanilla JavaScript
 
+Site is live:
+https://portfolio-maker-vanillajs.netlify.app/
+
 ## Why make it?:
 I could not find any website that allows you to create a portfolio using vanilla JavaScript, without using any framework or jQuery. So I decided to create one.
 
